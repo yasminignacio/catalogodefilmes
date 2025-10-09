@@ -59,7 +59,48 @@
         // splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
         // isso atualiza o array 'catalogo'.
         catalogo.splice(indice, 1);
+
+        //B. REMOÇÃO DO DOM (Visual)
+        //O método .remove() retira o elemento HTML da visualização do usuário.
+        elementoDOM.remove();
+
+        // Opcional: Atualiza a mensagem da lista se estiver vazia
+        if (catalogo.length === 0) {
+           listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
     }
+    console.log(`Filme no indice ${indice} removido. Catálogo atualizado:`, catalogo);
+}
+    //-------------------------------------------------------------------------------
+    //FUNÇÃO DE RENDERIZAÇÃO
+    //-------------------------------------------------------------------------------
+    //**
+    //Cria e exibe a estrutura HTML de um filme na lista. 
+    //@param {Object} filme - O objeto (titulo, sinopse) do filme.
+    //@param {number} indice O indice atual do filme no array catalogo
+   function renderizarFilme (filme, indice) {
+   // Remove a mensagem inicial se for o primeiro filme
+   if (catalogo.length === 1) {
+     listaFilmesContainer.innerHTML = '';
+  } 
+
+    // A. CRIAÇÃO DE ELEMENTOS HTML (document.createElement)
+
+    // Cria a <div> que ser a container de cada filme.
+    const filmeDiv = document.createElement('div');
+    FilmeDiv.classList.add('filme-item'); // Adiciona uma classe para estilização]
+
+    // Cria o <h3> para o titulo e define seu texto.
+    const tituloH3 = document.createElement('h3');
+     tituloH3.textContent = filme.titulo;
+
+     // Cria o <p> para a sinopse e define seu texto.
+    const sinopseP = document.createElement('p');
+    sinopseP.textContent = filme.sinopse;
+
+    // Cria o botão de remoção.
+
+
+   }
    </script>
 
 </body>
