@@ -98,9 +98,18 @@
     sinopseP.textContent = filme.sinopse;
 
     // Cria o botão de remoção.
+    const removerBotao = document.createElement('button');
+    removerBotao.textContent = 'Remover';
+    removerBotao.classList.add('btn-remover');
 
+    //B. DEFINIÇÃO DO EVENTO DE REMOÇÃO (addEventListener)
+    // Anexa a função 'removerfilme' ao clique do botão.
+    removerBotao.addEventListener('click', () => {
+      // Ao clicar, chamamos a função, passando o indice (posição) e a própria <div> (filmeDiv).
+     removerFilme(indice, filmeDiv);
+ });
+}
 
-   }
    </script>
 
 </body>
