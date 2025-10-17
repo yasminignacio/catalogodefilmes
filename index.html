@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catálogo de Filmes - Fase 1: Cadastro Manual (DOM Básico)</title>
+
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -13,7 +14,7 @@
 <h1>Catálogo de Filmes</h1>
 
 <form id="cadastro-filme">
-<h2>Adicionar Novo Filme</h2>
+<h2>Adicionar Novo Filme (Busca por API)</h2>
 <div>
 <label for="titulo">Título do Filme:</label>
 <input type="text" id="titulo" required>
@@ -34,28 +35,26 @@
 </div>
 
 <script>
+// A CHAVE SECRETA DA API OMDb (Substitua esta sting pela sua chave real!)
+const API KEY = '72dcf75a';
+
 // 1. ARMAZENAMENTO DE DADOS
-// Array global que irá guardar todos os filmes como Objetos.
-// Ex: [{ titulo: 'Filme X', sinopse: 'Sinopse Y' }]
 const catalogo = [];
 
-// 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model)
-// Capturamos os elementos HTML que vamos interagir, usando seus IDs.
-form = document.getElementById('cadastro-filme');
+// 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model).
+const form = document.getElementById('cadastro-filme');
+const titulInput = document.getElementById('titulo');
 const listaFilmesContainer = document.getElementById('lista-filmes');
 
 // ------------------------------------------------
 // // FUNÇÃO DE REMOÇÃO
 // ------------------------------------------------
-/**
-* Remove um filme do array de dados e do elemento HTML na tela.
-* @param {number} indice - A posição do filme no array 'catalogo'.
-* @param {HTMLElement} elementoDOM - O elemento <div> do filme a ser removido da tela.
-*/
 function removerFilme(indice, elementoDOM) {
+    catalogo.splice(indice, 1);
+    elementoDOM.remove();
+
+
 // A. REMOÇÃO DO ARRAY (Lógica)
-// splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
-// Isso atualiza o array 'catalogo'.
 catalogo.splice(indice, 1);
 
 // B. REMOÇÃO DO DOM (Visual)
@@ -73,28 +72,31 @@ console.log(`Filme no índice ${indice} removido. Catálogo atualizado:`, catalo
 // -------------------------------------------------------------
 // FUNÇÃO DE RENDERIZAÇÃO
 // -------------------------------------------------------------
-/**
-* Cria e exibe a estrutura HTML de um filme na lista.
-* * @param {Object} filme - O objeto {titulo, sinopse} do filme.
-* @param {number} indice - O índice atual do filme no array 'catalogo'.
-*/
 function renderizarFilme(filme, indice) {
-// Remove a mensagem inicial se for o primeiro filme
+
 if (catalogo.length === 1) {
 listaFilmesContainer.innerHTML = '';
 }
 
-// A. CRIAÇÃO DE ELEMENTOS HTML (document.createElement)
 
-// Cria a <div> que será o container de cada filme.
 const filmeDiv = document.createElement('div');
-filmeDiv.classList.add('filme-item'); // Adiciona uma classe para estilização
+filmeDiv.classList.add('filme-item'); 
 
-// Cria o <h3> para o título e define seu texto.
+const imagemPoster = document.createElement(1div);
+imagemPoster.src = filme.poster && filme.poster !== 'N/A'
+                            ? filme.poster
+                            :'';
+ imagemPoster.alt = `Poster do Filme ${filme-titulo}`;
+ imagemPoster.classList.add('filme-poster');
+
+ const infoDiv = document.createElement('div');
+ infoDiv.classList.add ('filme-info');
+
+
 const tituloH3 = document.createElement('h3');
 tituloH3.textContent = filme.titulo;
 
-// Cria o <p> para a sinopse e define seu texto.
+
 const sinopseP = document.createElement('p');
 sinopseP.textContent = filme.sinopse;
 
@@ -103,24 +105,19 @@ const removerBotao = document.createElement('button');
 removerBotao.textContent = 'Remover';
 removerBotao.classList.add('btn-remover');
 
-// B. DEFINIÇÃO DO EVENTO DE REMOÇÃO (addEventListener)
 // Anexa a função 'removerFilme' ao clique do botão.
 removerBotao.addEventListener('click', () => {
+    const indice
+
 // Ao clicar, chamamos a função, passando o índice (posição) e a própria <div> (filmeDiv).
 removerFilme(indice, filmeDiv);
 });
 
 // C. ANEXAR ELEMENTOS (appendChild)
-// Monta a estrutura hierárquica:
-// filmeDiv
-// |-- tituloH3
-// |-- sinopseP
-// |-- removerBotao
 filmeDiv.appendChild(tituloH3);
 filmeDiv.appendChild(sinopseP);
 filmeDiv.appendChild(removerBotao);
 
-// D. INSERÇÃO NO DOM FINAL
 // Adiciona o filme montado (filmeDiv) dentro do container principal na página.
 listaFilmesContainer.appendChild(filmeDiv);
 }
