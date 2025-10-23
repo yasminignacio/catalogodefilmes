@@ -4,34 +4,37 @@ body {
    padding: 30px;
    max-width: 900px;
    margin: 0 auto;
-   background-color: #f4f7fb;
+   background: linear-gradient(135deg, #e3f2fd 0%, #e8eaf6 50%, #f3e5f5 100%);
    color: #333;
+   min-height: 100vh;
 }
 
+/* Títulos */
 h1, h2 { 
-  color: #333;
+  color: #2c3e50;
   text-align: center;
 }
 
 h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: 2.6em;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
 }
 
 h2 {
   font-size: 1.8em;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /* Formulário */
 form {
-   background: #ffffff;
+   background: rgba(255, 255, 255, 0.9); /* Fundo branco levemente translúcido */
    padding: 25px;
-   border: 1px solid #ddd;
-   border-radius: 8px;
-   margin-bottom: 30px;
-   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-   background-color: #fff;
+   border: 1px solid #d1d9e6;
+   border-radius: 10px;
+   margin-bottom: 35px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+   backdrop-filter: blur(6px);
 }
 
 label {
@@ -39,6 +42,7 @@ label {
    margin-bottom: 8px;
    font-weight: 600;
    font-size: 1.1em;
+   color: #37474f;
 }
 
 input[type="text"], textarea {
@@ -47,10 +51,17 @@ input[type="text"], textarea {
    margin-bottom: 15px;
    border: 1px solid #ccc;
    border-radius: 6px;
-   background-color: #f9f9f9;
-   font-size: 1.1em;
+   background-color: #f9fafc;
+   font-size: 1.05em;
    color: #333;
    box-sizing: border-box;
+   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+   border-color: #64b5f6;
+   box-shadow: 0 0 6px rgba(100, 181, 246, 0.5);
+   outline: none;
 }
 
 textarea {
@@ -58,20 +69,26 @@ textarea {
    resize: vertical;
 }
 
+/* Botão principal */
 button {
-   padding: 12px 20px;
-   background-color: #007bff;
+   padding: 12px 22px;
+   background-color: #1976d2;
    color: #fff;
    border: none;
    border-radius: 6px;
    cursor: pointer;
    font-size: 1.1em;
+   letter-spacing: 0.5px;
    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-   background-color: #0056b3;
-   transform: translateY(-2px); /* Efeito de "levitação" */
+   background-color: #1565c0;
+   transform: translateY(-2px);
+}
+
+button:active {
+   background-color: #0d47a1;
 }
 
 /* Lista de Filmes - Estilo Flexbox */
@@ -79,35 +96,37 @@ button:hover {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   padding: 20px;
   margin-bottom: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .filme-item:hover {
-  transform: translateY(-5px); /* Efeito de hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
+/* Imagem do filme */
 .filme-poster {
    width: 120px;
    height: 180px;
    object-fit: cover;
-   border-radius: 6px;
-   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+   border-radius: 8px;
+   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
    margin-right: 20px;
 }
 
+/* Informações do filme */
 .filme-info {
    flex-grow: 1;
 }
 
 .filme-info h3 { 
   margin-top: 0;
-  color: #007bff;
+  color: #1565c0;
   font-size: 1.4em;
   font-weight: 600;
 }
@@ -116,37 +135,37 @@ button:hover {
   color: #555;
   margin-bottom: 15px;
   line-height: 1.6;
-  font-size: 1.1em;
+  font-size: 1.05em;
 }
 
 /* Botão Remover */
 .filme-item .btn-remover {
-  background-color: #dc3545;
+  background-color: #e53935;
   color: #fff;
   border: none;
   border-radius: 6px;
   padding: 8px 15px;
-  font-size: 1em;
+  font-size: 0.95em;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .filme-item .btn-remover:hover {
-  background-color: #c82333;
+  background-color: #c62828;
   transform: translateY(-2px);
 }
 
 /* Estilo para lista vazia */
 #lista-filmes p {
   font-size: 1.2em;
-  color: #888;
+  color: #666;
   text-align: center;
   margin-top: 40px;
 }
 
-/* Adicionando um toque visual ao form e lista */
+/* Efeitos suaves */
 form, .filme-item {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 form:hover, .filme-item:hover {
@@ -155,5 +174,5 @@ form:hover, .filme-item:hover {
 
 button:focus, .btn-remover:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.6);
 }
