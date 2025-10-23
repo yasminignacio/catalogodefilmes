@@ -14,55 +14,48 @@
     <h2>Buscar Novo Filme</h2>
     <div>
         <label for="titulo">Título do Filme:</label>
-        <input type="text" id="titulo" required>
-    </div>
-    <div>
-        <label for="sinopse">Sinopse:</label>
-        <textarea id="sinopse" required></textarea>
+        <input type="text" id="titulo" required placeholder="Ex: Vingadores, Titanic, etc.">
     </div>
 
     <button type="submit">Buscar Filme</button>
 </form>
 <hr>
 
-<h2>Minha Lista De Filmes</h2>
+<h2>Minha Lista de Filmes</h2>
 
 <div id="lista-filmes">
     <p>Nenhum filme cadastrado ainda.</p>
 </div>
 
 <script>
-// A CHAVE SECRETA DA API OMDb (Substitua esta string pela sua chave real!)
+// 🔑 Sua chave da API OMDb
 const API_KEY = 'c4e45fd4'; 
 
-// 1. ARMAZENAMENTO DE DADOS
+// 1. Armazenamento dos filmes
 const catalogo = [];
 
-// 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model).
+// 2. Captura de elementos do DOM
 const form = document.getElementById('cadastro-filme');
 const tituloInput = document.getElementById('titulo');
 const listaFilmesContainer = document.getElementById('lista-filmes');
 
 // ------------------------------------------------
-// FUNÇÃO DE REMOÇÃO
+// Função de remoção
 // ------------------------------------------------
 function removerFilme(indice, elementoDOM) {
     catalogo.splice(indice, 1);
     elementoDOM.remove();
 
-    // Atualiza a mensagem da lista se estiver vazia
+    // Atualiza a mensagem se não houver filmes
     if (catalogo.length === 0) {
         listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
     }
-
-    console.log(`Filme no índice ${indice} removido. Catálogo atualizado:`, catalogo);
 }
 
-// -------------------------------------------------------------
-// FUNÇÃO DE RENDERIZAÇÃO
-// -------------------------------------------------------------
-function renderizarFilme(filme, indice) {
-
+// ------------------------------------------------
+// Função de renderização de filme
+// ------------------------------------------------
+function renderizarFilme(filme) {
     if (catalogo.length === 1) {
         listaFilmesContainer.innerHTML = '';
     }
@@ -70,11 +63,13 @@ function renderizarFilme(filme, indice) {
     const filmeDiv = document.createElement('div');
     filmeDiv.classList.add('filme-item');
 
+    // Poster
     const imagemPoster = document.createElement('img');
     imagemPoster.src = filme.poster && filme.poster !== 'N/A' ? filme.poster : '';
     imagemPoster.alt = `Poster do Filme ${filme.titulo}`;
     imagemPoster.classList.add('filme-poster');
 
+    // Informações
     const infoDiv = document.createElement('div');
     infoDiv.classList.add('filme-info');
 
@@ -95,6 +90,7 @@ function renderizarFilme(filme, indice) {
         }
     });
 
+    // Montagem
     infoDiv.appendChild(tituloH3);
     infoDiv.appendChild(sinopseP);
     infoDiv.appendChild(removerBotao);
@@ -105,7 +101,9 @@ function renderizarFilme(filme, indice) {
     listaFilmesContainer.appendChild(filmeDiv);
 }
 
-// FUNÇÃO PRINCIPAL DE ADIÇÃO (Assíncrona para a API)
+// ------------------------------------------------
+// Função principal (busca na API)
+// ------------------------------------------------
 async function adicionarFilme(evento) {
     evento.preventDefault();
 
@@ -127,25 +125,24 @@ async function adicionarFilme(evento) {
             };
 
             catalogo.push(novoFilme);
-            renderizarFilme(novoFilme, catalogo.length - 1);
+            renderizarFilme(novoFilme);
         } else {
             alert(`Filme não encontrado na OMDb: "${titulo}".`);
         }
 
     } catch (error) {
-        alert('Ocorreu um erro ao tentar buscar o filme na API. Verifique sua chave.');
+        alert('Erro ao buscar filme na API. Verifique sua conexão ou chave.');
         console.error('Erro de Fetch:', error);
     }
 
     form.reset();
 }
 
-// 6. ESCUTANDO O EVENTO DO FORMULÁRIO
+// 6. Escuta o evento de envio
 form.addEventListener('submit', adicionarFilme);
 
-console.log("JavaScript Carregado. Pronto para iniciar o catálogo!");
+console.log("Catálogo de filmes iniciado com busca por API ativa.");
 </script>
 
 </body>
 </html>
-
