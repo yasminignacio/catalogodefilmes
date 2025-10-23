@@ -30,9 +30,7 @@
 <script>
 // 🔑 Sua chave da API OMDb
 const API_KEY = 'c4e45fd4'; 
-
-// 1. Armazenamento dos filmes
-const catalogo = [];
+let catalogo = JSON.parse(localStorage.getItem('catalogo')) || [];
 
 // 2. Captura de elementos do DOM
 const form = document.getElementById('cadastro-filme');
