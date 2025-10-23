@@ -1,98 +1,159 @@
+/* Estilos gerais */
 body {
-   font-family: Arial, sans-serif;
-   padding: 20px;
-   max-width: 800px;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   padding: 30px;
+   max-width: 900px;
    margin: 0 auto;
-   background-color:#fff;
+   background-color: #f4f7fb;
+   color: #333;
 }
+
 h1, h2 { 
   color: #333;
+  text-align: center;
 }
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+/* Formulário */
 form {
-   background: efff;
-   padding: 20px;
+   background: #ffffff;
+   padding: 25px;
    border: 1px solid #ddd;
-   border-radius: 5px;
-   margin-bottom: 20px;
-   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+   border-radius: 8px;
+   margin-bottom: 30px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   background-color: #fff;
 }
+
 label {
    display: block;
-   margin-bottom: 5px;
-   font-weight: bold;
+   margin-bottom: 8px;
+   font-weight: 600;
+   font-size: 1.1em;
 }
-input[type="text"] {
+
+input[type="text"], textarea {
    width: 100%;
-   padding: 8px;
-   margin-bottom: 10px;
-   border: 1px solid #CCC;
-   border-radius: 4px;
+   padding: 12px;
+   margin-bottom: 15px;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   background-color: #f9f9f9;
+   font-size: 1.1em;
+   color: #333;
    box-sizing: border-box;
 }
 
-button {  
-   padding: 10px 15px;
-   background-color:#007bff;
-   color: white;
+textarea {
+   height: 120px;
+   resize: vertical;
+}
+
+button {
+   padding: 12px 20px;
+   background-color: #007bff;
+   color: #fff;
    border: none;
-   border-radius: 4px;
+   border-radius: 6px;
    cursor: pointer;
-   transition: background-color 8.2s;
+   font-size: 1.1em;
+   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 button:hover {
-   background-color:#0056b3;
+   background-color: #0056b3;
+   transform: translateY(-2px); /* Efeito de "levitação" */
 }
 
-/*---------------------------------------------------*/
-/* ESTILOS PARA A FASE 2: LISTA COM POSTER (Flexbox) */
-/*---------------------------------------------------*/
-
-/* Conteiner do Filme: Organiza imagem e texto */
+/* Lista de Filmes - Estilo Flexbox */
 .filme-item {
-  display: flex; /*Habilita o alinhamento lado a lado */
-  align-items: flex-start; /*Alinha o conteúdo ao topo*/
-  
-  border: 1px solid #ddd;
-  padding: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo de poster */
+.filme-item:hover {
+  transform: translateY(-5px); /* Efeito de hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .filme-poster {
-   width: 100px;
-   height: 150px;
+   width: 120px;
+   height: 180px;
    object-fit: cover;
-   margin-right: 15px; /* Espaço entre o poster e o texto */
-   border-radius: 4px;
-   box-shadow: 0 0 5px rgba(0,0,0,0.2);
+   border-radius: 6px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+   margin-right: 20px;
 }
 
-/* Estilo do Bloco de Informações */
 .filme-info {
-   flex-grow: 1; /* Ocupa o espaco restante */
+   flex-grow: 1;
 }
 
 .filme-info h3 { 
   margin-top: 0;
   color: #007bff;
-  font-size: 1.2em;
+  font-size: 1.4em;
+  font-weight: 600;
 }
+
 .filme-info p { 
-  font-style: normal;
   color: #555;
   margin-bottom: 15px;
-  line-height: 1.4; 
+  line-height: 1.6;
+  font-size: 1.1em;
 }
 
 /* Botão Remover */
 .filme-item .btn-remover {
   background-color: #dc3545;
-  font-size: 0.8em;
-  padding: 5px 10px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 .filme-item .btn-remover:hover {
   background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Estilo para lista vazia */
+#lista-filmes p {
+  font-size: 1.2em;
+  color: #888;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Adicionando um toque visual ao form e lista */
+form, .filme-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+form:hover, .filme-item:hover {
+  transform: translateY(-2px);
+}
+
+button:focus, .btn-remover:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
 }
