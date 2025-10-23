@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Filmes - Fase 1: Cadastro Manual (DOM Básico)</title>
+    <title>Catálogo de Filmes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
 <h1>Catálogo de Filmes</h1>
 
 <form id="cadastro-filme">
-    <h2>Adicionar Novo Filme (Busca por API)</h2>
+    <h2>Buscar Novo Filme</h2>
     <div>
         <label for="titulo">Título do Filme:</label>
         <input type="text" id="titulo" required>
@@ -21,7 +21,7 @@
         <textarea id="sinopse" required></textarea>
     </div>
 
-    <button type="submit">Adicionar Filme</button>
+    <button type="submit">Buscar Filme</button>
 </form>
 <hr>
 
@@ -70,8 +70,7 @@ function renderizarFilme(filme, indice) {
     const filmeDiv = document.createElement('div');
     filmeDiv.classList.add('filme-item');
 
-    // Corrigido para a criação correta da imagem
-    const imagemPoster = document.createElement('img'); // Aqui é "img", não "div"
+    const imagemPoster = document.createElement('img');
     imagemPoster.src = filme.poster && filme.poster !== 'N/A' ? filme.poster : '';
     imagemPoster.alt = `Poster do Filme ${filme.titulo}`;
     imagemPoster.classList.add('filme-poster');
@@ -85,12 +84,10 @@ function renderizarFilme(filme, indice) {
     const sinopseP = document.createElement('p');
     sinopseP.textContent = filme.sinopse;
 
-    // Cria o botão de remoção.
     const removerBotao = document.createElement('button');
     removerBotao.textContent = 'Remover';
     removerBotao.classList.add('btn-remover');
 
-    // Anexa a função 'removerFilme' ao clique do botão.
     removerBotao.addEventListener('click', () => {
         const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
         if (indiceAtual > -1) {
@@ -98,7 +95,6 @@ function renderizarFilme(filme, indice) {
         }
     });
 
-    // Montagem do DOM
     infoDiv.appendChild(tituloH3);
     infoDiv.appendChild(sinopseP);
     infoDiv.appendChild(removerBotao);
@@ -117,7 +113,7 @@ async function adicionarFilme(evento) {
     if (!titulo) return;
 
     const tituloFormatado = encodeURIComponent(titulo);
-    const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${tituloFormatado}`; // Corrigido URL
+    const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${tituloFormatado}`;
 
     try {
         const resposta = await fetch(url);
@@ -152,3 +148,4 @@ console.log("JavaScript Carregado. Pronto para iniciar o catálogo!");
 
 </body>
 </html>
+
