@@ -107,16 +107,63 @@ removerBotao.classList.add('btn-remover');
 
 // Anexa a função 'removerFilme' ao clique do botão.
 removerBotao.addEventListener('click', () => {
-    const indice
-
-// Ao clicar, chamamos a função, passando o índice (posição) e a própria <div> (filmeDiv).
-removerFilme(indice, filmeDiv);
+    const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
+    if (indiceAtual > -1) {
+    removerFilme(indiceAtual, filmeDiv);
+    }
 });
 
-// C. ANEXAR ELEMENTOS (appendChild)
-filmeDiv.appendChild(tituloH3);
-filmeDiv.appendChild(sinopseP);
-filmeDiv.appendChild(removerBotao);
+//D. Montagem do DOM
+ infoDiv.appendChild(tituloH3);
+ infoDiv.appendChild(sinopseP);
+ infoDiv.appendChild(removerBotao);
+
+ filmeDiv.appendChild(imagemPoster);
+ FilmeDiv.appendChild(infoDiv);
+ 
+ listaFilmesContainer.appendChild(filmeDiv);
+}
+
+
+// FUNCÃO PRINCIPAL DE ADIÇÃO (Assancrona para a API)
+   async function adicionarFilme(evento) {
+   evento.preventDefault();
+
+  const titulo = tituloinput.value.trim();
+  if (!titulo) return;
+
+  const tituloFormatado = encodeURIComponent(titulo);
+  const url=`https://www.omdbapi.com/Papikey=${API_KEY}&t=${tituloFormatado}`;
+
+  try {
+   const resposta = await fetch(url);
+   const dadosDoFilme = await resposta.json();
+
+     if (dadosDoFilme.Response === "True") {
+
+     const novoFilme = {
+      titulo: dadosDoFilme.Title,
+      sinopse: dadosDoFilme.Plot,
+      poster: dadosDoFilme.Poster,
+};
+
+   catalogo.push(novoFilme);
+   renderizarFilme (novoFilme, catalogo.length - 1);
+
+  } else {
+   alert(`Filme não encontrado na OMDb: "${titulo}".`);
+  }
+   
+ } catch (error) {
+    alert('Ocorreu um erro ao tentar buscar o filme na API. Verifique sus chave.');
+    console.error('Erro de Fetch:', error);
+}
+  
+  form.reset();
+}
+  // 6. ESCUTANDO O EVENTO DO FORMULARIO
+   form.addEventListener('submit', adicionarFilme);
+
 
 // Adiciona o filme montado (filmeDiv) dentro do container principal na página.
 listaFilmesContainer.appendChild(filmeDiv);
