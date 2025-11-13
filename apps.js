@@ -16,3 +16,16 @@ card.dataset.imdbId = filme.imdbID;
 
 // Garante que o rating seja um valor presente
 const rating = filme.imdbRating ? `⭐ ${filme.imdbRating}` : `⭐ N/A`;
+
+// Conteudo HTML do card, usando as novas classes CSS
+card.innerHTML =
+   <img src="${filme.Poster !== 'N/A' ? filme.Poster : 'placeholder.jpg'}"
+     alt="${filme.Title}"
+     class="poster-filme">
+<span class="avaliacao">${rating}</span>
+<div class="card-detalhes">
+    <h3 class="titulo-filme">${filme.Title} (${filme.Year})</h3>
+    <button class="botao-adicionar" data-title="${filme. Title}">
+      + Minha Lista
+</button>
+</div>
