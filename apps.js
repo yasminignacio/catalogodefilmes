@@ -18,7 +18,7 @@ card.dataset.imdbId = filme.imdbID;
 const rating = filme.imdbRating ? `⭐ ${filme.imdbRating}` : `⭐ N/A`;
 
 // Conteudo HTML do card, usando as novas classes CSS
-card.innerHTML =
+card.innerHTML = `
    <img src="${filme.Poster !== 'N/A' ? filme.Poster : 'placeholder.jpg'}"
      alt="${filme.Title}"
      class="poster-filme">
@@ -27,5 +27,32 @@ card.innerHTML =
     <h3 class="titulo-filme">${filme.Title} (${filme.Year})</h3>
     <button class="botao-adicionar" data-title="${filme. Title}">
       + Minha Lista
-</button>
+  </button>
 </div>
+`;
+
+// Adiciona um listener para a funcionalidade de trailer (Se você tiver a API)
+// Se você usar a OMDB, precisará de uma segunda chamada para os detalhes
+card.addEventListener('click', () => buscarEExibirDetalhes (filme.imdbID));
+
+return card;
+}
+
+// --- B. Função Principal de Busca ---
+/**
+* Busca o filme na OMDS e atualiza o container.
+* @param {string} termo - Termo de busca digitado pelo usuario.
+*/
+async function buscarFilmes (termo) { 
+  if (!termo) return; // Não busca se o campo estiver vazio
+
+// Limpa a lista anterior e mostra um indicador de carregamento
+listafilmesContainer.innerHTML = '<p style="text-align: center; color: gray;">Carregando...</p>';
+ 
+try (
+// Busca na OMDB (O parametro 's' para busca por termo)
+const response await fetch(https://www.omdbapi.com/?s=$(termo)&apikey=${OMDB_API_KEY} );
+const data await response.json();
+
+// Limpa o container novamente
+listaFilmes Container.innerHTML =
