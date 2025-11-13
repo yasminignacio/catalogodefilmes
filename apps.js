@@ -88,3 +88,11 @@ async function buscarDetalhes(imdbID) {
    return null;
   }
 }
+
+
+
+
+function buscarEExibirDetalhes (imdbID) {
+
+
+alert(`Funcionalidade de Detalhes/Trailer para o ID: ${imdbID} (Ainda precisa ser implementada).`);
