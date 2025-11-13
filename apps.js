@@ -74,3 +74,17 @@ if (data.Response === 'True' && data.Search){
   listaFilmesContainer.innerHTML= '<p style="text-align: center; color: red;">Erro na conexão com a API.</p>';
   }
 }
+
+
+
+async function buscarDetalhes(imdbID) {
+  try{
+  // Busca na ONDS (O parametro i para busca por ID)
+  const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`);
+    const data = await response.json();
+    return data.Response === 'True' ? data : null;
+  } catch (erroг) {
+   console.error("Erro ao buscar detalhes:", error);
+   return null;
+  }
+}
